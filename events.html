@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events - EventHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .events-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .search-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .search-filter input,
+        .search-filter select {
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .pagination button {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .pagination button:hover {
+            background-color: var(--secondary-color);
+        }
+        .pagination button:disabled {
+            background-color: var(--border-color);
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">EventHub</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html" class="active">Upcoming Events</a></li>
+                <li><a href="create-event.html">Create Event</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="events-header">
+            <h1>Upcoming Events</h1>
+            <div class="search-filter">
+                <input type="text" id="search" placeholder="Search events...">
+                <select id="category">
+                    <option value="">All Categories</option>
+                    <option value="tech">Tech</option>
+                    <option value="music">Music</option>
+                    <option value="food">Food</option>
+                </select>
+                <input type="date" id="date">
+            </div>
+        </section>
+
+        <section class="event-grid">
+            <!-- Event cards will be dynamically inserted here -->
+        </section>
+
+        <div class="pagination">
+            <button id="prev-page" disabled>Previous</button>
+            <button id="next-page">Next</button>
+        </div>
+    </main>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About EventHub</h3>
+                <p>EventHub is your go-to platform for discovering and creating amazing events. We connect people through shared experiences.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@eventhub.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">FB</a>
+                    <a href="#" class="social-icon">TW</a>
+                    <a href="#" class="social-icon">IG</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 EventHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Sample event data (replace with actual data in a real application)
+        const allEvents = [
+            {
+                title: 'Tech Conference 2023',
+                date: '2023-09-15',
+                time: '09:00 AM',
+                location: 'San Francisco, CA',
+                image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=600&q=80',
+                category: 'tech'
+            },
+            {
+                title: 'Music Festival',
+                date: '2023-07-22',
+                time: '12:00 PM',
+                location: 'New York, NY',
+                image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=600&q=80',
+                category: 'music'
+            },
+            {
+                title: 'Food & Wine Expo',
+                date: '2023-08-05',
+                time: '11:00 AM',
+                location: 'Chicago, IL',
+                image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=600&q=80',
+                category: 'food'
+            },
+            // Add more events here...
+        ];
+
+        let currentPage = 1;
+        const eventsPerPage = 6;
+
+        function displayEvents(events) {
+            const eventGrid = document.querySelector('.event-grid');
+            eventGrid.innerHTML = '';
+            events.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.classList.add('event-card');
+                eventCard.innerHTML = `
+                    <img src="${event.image}" alt="${event.title}">
+                    <div class="event-card-content">
+                        <h3>${event.title}</h3>
+                        <p>${event.date} at ${event.time}</p>
+                        <div class="event-details">
+                            <span>${event.location}</span>
+                            <a href="event-details.html" class="cta-button">More Details</a>
+                        </div>
+                    </div>
+                `;
+                eventGrid.appendChild(eventCard);
+            });
+        }
+
+        function filterEvents() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const category = document.getElementById('category').value;
+            const date = document.getElementById('date').value;
+
+            const filteredEvents = allEvents.filter(event => {
+                const matchesSearch = event.title.toLowerCase().includes(searchTerm) || event.location.toLowerCase().includes(searchTerm);
+                const matchesCategory = category === '' || event.category === category;
+                const matchesDate = date === '' || event.date === date;
+                return matchesSearch && matchesCategory && matchesDate;
+            });
+
+            currentPage = 1;
+            updatePagination(filteredEvents);
+            displayEvents(filteredEvents.slice(0, eventsPerPage));
+        }
+
+        function updatePagination(events) {
+            const prevButton = document.getElementById('prev-page');
+            const nextButton = document.getElementById('next-page');
+            const totalPages = Math.ceil(events.length / eventsPerPage);
+
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+        }
+
+        document.getElementById('search').addEventListener('input', filterEvents);
+        document.getElementById('category').addEventListener('change', filterEvents);
+        document.getElementById('date').addEventListener('change', filterEvents);
+
+        document.getElementById('prev-page').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                filterEvents();
+            }
+        });
+
+        document.getElementById('next-page').addEventListener('click', () => {
+            const totalPages = Math.ceil(allEvents.length / eventsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                filterEvents();
+            }
+        });
+
+        // Initial display
+        filterEvents();
+    </script>
+</body>
+</html>

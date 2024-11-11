@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details - EventHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .event-details {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: var(--surface-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .event-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        .event-info {
+            margin-bottom: 2rem;
+        }
+        .event-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .event-info p {
+            margin-bottom: 0.5rem;
+            color: var(--text-color-secondary);
+        }
+        .register-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .register-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .social-share {
+            margin-top: 2rem;
+        }
+        .social-share a {
+            display: inline-block;
+            margin-right: 1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">EventHub</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html">Upcoming Events</a></li>
+                <li><a href="create-event.html">Create Event</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="event-details">
+            <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80" alt="Event Image" class="event-image">
+            <div class="event-info">
+                <h1>Tech Conference 2023</h1>
+                <p><strong>Date:</strong> September 15, 2023</p>
+                <p><strong>Time:</strong> 09:00 AM - 05:00 PM</p>
+                <p><strong>Location:</strong> San Francisco Convention Center, 747 Howard St, San Francisco, CA 94103</p>
+                <p><strong>Description:</strong> Join us for the biggest tech conference of the year! Featuring keynote speakers from leading tech companies, hands-on workshops, and networking opportunities. Don't miss this chance to stay ahead in the rapidly evolving world of technology.</p>
+            </div>
+            <a href="#" class="register-button" id="register-button">Register Now</a>
+            <div class="social-share">
+                <p><strong>Share this event:</strong></p>
+                <a href="#" class="facebook-share">Facebook</a>
+                <a href="#" class="twitter-share">Twitter</a>
+                <a href="#" class="linkedin-share">LinkedIn</a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About EventHub</h3>
+                <p>EventHub is your go-to platform for discovering and creating amazing events. We connect people through shared experiences.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@eventhub.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">FB</a>
+                    <a href="#" class="social-icon">TW</a>
+                    <a href="#" class="social-icon">IG</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 EventHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('register-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            // In a real application, you would handle the registration process here
+            // For this example, we'll just show an alert
+            alert('Thank you for registering! You will receive a confirmation email shortly.');
+        });
+
+        // Social sharing functionality (simplified for this example)
+        document.querySelector('.facebook-share').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href), 'facebook-share-dialog', 'width=626,height=436');
+        });
+
+        document.querySelector('.twitter-share').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent('Check out this amazing event: ' + document.title) + '&url=' + encodeURIComponent(window.location.href), 'twitter-share-dialog', 'width=626,height=436');
+        });
+
+        document.querySelector('.linkedin-share').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open('https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(window.location.href) + '&title=' + encodeURIComponent(document.title), 'linkedin-share-dialog', 'width=626,height=436');
+        });
+    </script>
+</body>
+</html>
