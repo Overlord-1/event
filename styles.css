@@ -2,7 +2,7 @@
     --background-color: #121212;
     --surface-color: #1e1e1e;
     --primary-color: #bb86fc;
-    --secondary-color: #03dac6;
+    --secondary-color: #fa9797;
     --accent-color: #cf6679;
     --text-color: #e0e0e0;
     --text-color-secondary: #a0a0a0;
@@ -137,6 +137,7 @@ main {
 .cta-button:hover {
     background-color: var(--secondary-color);
     transform: translateY(-3px);
+    color: var(--background-color);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
